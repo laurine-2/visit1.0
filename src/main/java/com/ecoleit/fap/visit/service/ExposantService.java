@@ -2,6 +2,7 @@ package com.ecoleit.fap.visit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -26,10 +27,16 @@ public class ExposantService {
 	
 	public ExposantDTO getExposant(int id) {
 		
-		Exposant entity= repos.findById(id).get();
-		ExposantDTO exposant=new ExposantDTO();
-		exposant.mapExposantEntity(entity);
-		return exposant;
+		try {
+			Exposant entity= repos.findById(id).get();
+			ExposantDTO exposant=new ExposantDTO();
+			exposant.mapExposantEntity(entity);
+			return exposant;
+			
+		} catch (NoSuchElementException e) {
+			return null;
+			// TODO: handle exception
+		}
 	}
 	
 	 

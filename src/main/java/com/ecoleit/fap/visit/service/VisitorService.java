@@ -1,6 +1,7 @@
 package com.ecoleit.fap.visit.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,14 @@ public class VisitorService {
 	}
 	
 	public Visitor getVisitor(int id) {
-		return repos.findById(id).get();
+		try {
+			return repos.findById(id).get();
+			
+		} catch (NoSuchElementException e) {
+			return null;
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public List<Visitor> getAllVisitor(){

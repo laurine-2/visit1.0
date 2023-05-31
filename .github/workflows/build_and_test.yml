@@ -1,0 +1,26 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'  # Specify the version of Java you need
+      
+    - name: Build with Maven
+      run: mvn clean install  # Use the appropriate Maven command for your project
+      
+    - name: Run Tests
+      run: mvn test  # Use the appropriate Maven command for running tests

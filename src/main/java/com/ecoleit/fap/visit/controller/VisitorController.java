@@ -2,6 +2,8 @@ package com.ecoleit.fap.visit.controller;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ecoleit.fap.visit.dto.StandDTO;
 import com.ecoleit.fap.visit.dto.VisitDTO;
+import com.ecoleit.fap.visit.dto.VisitorDTO;
 import com.ecoleit.fap.visit.entity.Stand;
 import com.ecoleit.fap.visit.entity.Visit;
 import com.ecoleit.fap.visit.entity.Visitor;
@@ -55,6 +58,17 @@ public class VisitorController {
 		visit.setVisitor(visitor);
 		visitService.addVisit(visit);
 		
+		
+	}
+	@GetMapping("{id}")
+	public ResponseEntity<Visitor> getVisitor (@PathVariable("id") int id) {
+		Visitor visitor = service.getVisitor(id);
+		if(visitor != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(visitor);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 		
 	}
 	
