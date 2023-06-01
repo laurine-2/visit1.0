@@ -12,7 +12,9 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      run: | 
+        echo "Checking out code"
+        actions/checkout@v2
       
     - name: Set up Java
       uses: actions/setup-java@v2
@@ -20,7 +22,7 @@ jobs:
         java-version: '17.0.7'  # Specify the version of Java you need
       run: |
         echo "Setting up java"
-
+        
       
     - name: Build with Maven
       run: |
