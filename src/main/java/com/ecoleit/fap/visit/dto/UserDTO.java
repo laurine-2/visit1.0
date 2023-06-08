@@ -6,7 +6,7 @@ public class UserDTO {
 	private int idUser;
 	private String login;
 	private String password;
-	private String user_type;
+	//private String user_type;
 	
 	
 	public UserDTO() {

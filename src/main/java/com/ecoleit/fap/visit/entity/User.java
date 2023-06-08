@@ -1,63 +1,88 @@
 package com.ecoleit.fap.visit.entity;
+import java.util.HashSet;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="user_type")
-@Table(name="users")
-public abstract class User {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column
-	private String email;
-	@Column
-	private String password;
-	
-	public User() {
-		super();
-	}
-	public User(String login, String password) {
-		super();
-		this.email = login;
-		this.password = password;
-	}
-	public User(int idUser, String login, String password) {
-		super();
-		this.id = idUser;
-		this.email = login;
-		this.password = password;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int idUser) {
-		this.id = idUser;
-	}
- 
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
+@Table(name = "users", 
+    uniqueConstraints = { 
+      @UniqueConstraint(columnNames = "username"),
+      @UniqueConstraint(columnNames = "email") 
+    })
+public class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
 
+  @NotBlank
+  @Size(max = 20)
+  private String username;
+
+  @NotBlank
+  @Size(max = 50)
+  @Email
+  private String email;
+
+  @NotBlank
+  @Size(max = 120)
+  private String password;
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(  name = "user_roles", 
+        joinColumns = @JoinColumn(name = "user_id"), 
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles = new HashSet<>();
+
+  public User() {
+  }
+
+  public User(String username, String email, String password) {
+    this.username = username;
+    this.email = email;
+    this.password = password;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public Set<Role> getRoles() {
+    return roles;
+  }
+
+  public void setRoles(Set<Role> roles) {
+    this.roles = roles;
+  }
 }

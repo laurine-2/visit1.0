@@ -1,5 +1,6 @@
 package com.ecoleit.fap.visit.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.ecoleit.fap.visit.service.StandCellService;
 
 @RestController
 @RequestMapping("stand-cell")
+@Secured({"ADMIN", "SA","VISITOR"})
 public class StandCellController {
 	private StandCellService service;
 

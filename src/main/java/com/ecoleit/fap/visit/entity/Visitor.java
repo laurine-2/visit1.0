@@ -13,17 +13,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @DiscriminatorColumn(name="visitor")
 @Table(name="visitors")
-public class Visitor extends User{
-	/*@Id
+public class Visitor{
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idVisitor", nullable = false)
-	private int idVisitor;*/
+	private int idVisitor;
 	@Column
 	private String name;
 	@Column
@@ -43,6 +45,9 @@ public class Visitor extends User{
 	@OneToMany(mappedBy="visitor")
 	private List<Visit> visits;
 	//private List<Visit> visit=new ArrayList<Visit>();
+	@OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 	public Visitor() {
 		super();
@@ -51,7 +56,7 @@ public class Visitor extends User{
 	
 
 	public Visitor(String name, String surname, String adresse, String phone,
-			String poBox, String town, TypeVisitor typeVisitor) {
+			String poBox, String town, TypeVisitor typeVisitor, User user) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -60,19 +65,20 @@ public class Visitor extends User{
 		this.poBox = poBox;
 		this.town = town;
 		this.typeVisitor = typeVisitor;
+		this.user = user;
 	}
 	
 	
 
 
 
-	/*public int getIdVisitor() {
+	public int getIdVisitor() {
 		return idVisitor;
 	}
 
 	public void setIdVisitor(int idVisitor) {
 		this.idVisitor = idVisitor;
-	}*/
+	}
 
 	public String getName() {
 		return name;

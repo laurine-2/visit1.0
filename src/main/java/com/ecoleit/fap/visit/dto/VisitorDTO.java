@@ -215,9 +215,9 @@ public class VisitorDTO {
 		this.setPhone(entity.getPhone());
 		this.setSurname(entity.getSurname());
 		this.setTown(entity.getTown());
-		this.setIdVisitor(entity.getId());
+		/*this.setIdVisitor(entity.getId());
 		this.setEmail(entity.getEmail());
-		this.setPaswword(entity.getPassword());
+		this.setPaswword(entity.getPassword());*/
 		
 	}
 	

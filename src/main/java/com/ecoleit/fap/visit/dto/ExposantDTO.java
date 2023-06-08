@@ -23,9 +23,6 @@ public class ExposantDTO {
 	
 	private String town;
 	private String paswword;
-	
-	
-	
 
 	public ExposantDTO() {
 		super();
